@@ -29,6 +29,7 @@ function retrieveDisplay () {
     http.open ( 'post', 'http://'+server+'/a_pushnotification.php' );
     http.setRequestHeader ( 'Content-Type', 'application/x-www-form-urlencoded' );
     http.send ( postvalue );
+    alert ( postvalue );
   }
   catch ( err ) {
   }
@@ -79,8 +80,6 @@ var app = {
         if ( e.regid.length > 0 ) {
           registerid = localStorage.getItem ( 'registerid' );
           mobilenumber = localStorage.getItem ( 'mobilenumber' );
-          alert ( 'registerid '+registerid+' mobilenumber '+mobilenumber );
-          alert ( e.regid );
           localStorage.setItem ( 'registerid', e.regid );
           localStorage.setItem ( 'platform', 'android' );
           if ( ( registerid == null ) || ( mobilenumber == null ) ) {
@@ -199,7 +198,7 @@ function responseClickSignIn () {
       localStorage.setItem ( 'mobilenumber', mobilenumber );
       localStorage.setItem ( 'nric', nric );
       showmessage ( respText );
-      setTimeout ( 'retrieveDisplay', 5000 );
+      setTimeout ( retrieveDisplay, 5000 );
     }
     else {
       showerrormessage ( respText );
@@ -219,7 +218,6 @@ function clickSignIn () {
   var postvalue = 'submitform=signin&nric='+document.getElementById ( 'field1text' ).value+'&mobilenumber='+document.getElementById ( 'field2text' ).value;
   postvalue += '&registerid='+localStorage.getItem ( 'registerid' );
   postvalue += '&platform='+localStorage.getItem ( 'platform' );
-  alert ( postvalue );
   nric = document.getElementById ( 'field1text' ).value;
   mobilenumber = document.getElementById ( 'field2text' ).value;
   try {
@@ -227,9 +225,9 @@ function clickSignIn () {
     http.abort ();
     http.onreadystatechange = responseClickSignIn;
     http.open ( 'post', 'http://'+server+'/a_pushnotification.php' );
-    alert ( 'http://'+server+'/a_pushnotification.php' );
     http.setRequestHeader ( 'Content-Type', 'application/x-www-form-urlencoded' );
     http.send ( postvalue );
+    alert ( postvalue );
   }
   catch ( err ) {
   }
