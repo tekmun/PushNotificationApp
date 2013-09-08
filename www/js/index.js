@@ -181,6 +181,7 @@ function keypressChangeMobileNumber ( event ) {
 function responseClickSignIn () {
   if ( ( http.readyState == 4 ) && ( http.status == 200 ) ) {
     var respText = http.responseText.substring ( 5, http.responseText.length - 6 );
+    alert ( respText );
     if ( respText.indexOf ( 'Success' ) >= 0 ) {
       localStorage.setItem ( 'mobilenumber', mobilenumber );
       localStorage.setItem ( 'nric', nric );
