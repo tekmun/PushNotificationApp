@@ -1,3 +1,25 @@
+var http;
+
+function createRequestObject () {
+  var request_o;
+  if ( document.all && window.ActiveXObject ) {
+    request_o = new ActiveXObject ( 'Microsoft.XMLHTTP' );
+  }
+  else if ( window.opera ) {
+    request_o = new XMLHttpRequest ();
+  }
+  else {
+    request_o = new XMLHttpRequest ();
+  }
+  return ( request_o );
+}
+
+function responseNotification () {
+  if ( ( http.readyState == 4 ) && ( http.status == 200 ) ) {
+    alert ( 'responseNotification' );
+  }
+}
+
 var app = {
   initialize: function () {
     this.bindEvents ();
@@ -25,11 +47,11 @@ var app = {
     receivedElement.setAttribute ( 'style', 'display:block;' );
     var pushNotification = window.plugins.pushNotification;
     if ( device.platform == 'android' || device.platform == 'Android' ) {
-      alert ( 'Register called' );
+      alert ( '1. Register called' );
       pushNotification.register ( this.successHandler, this.errorHandler, { 'senderID':'232320349737', 'ecb':'app.onNotificationGCM' } );
     }
     else {
-      alert ( 'Register called' );
+      alert ( '2. Register called' );
       pushNotification.register ( this.successHandler, this.errorHandler, { 'badge':'true', 'sound':'true', 'alert':'true', 'ecb':'app.onNotificationAPN' } );
     }
   },
@@ -45,6 +67,18 @@ var app = {
       case 'registered':
         if ( e.regid.length > 0 ) {
           alert ( 'registration id = '+e.regid );
+          alert ( server );
+          var postvalue = 'submitform=register&id='+e.regid;
+          try {
+            http = createRequestObject ();
+            http.abort ();
+            http.onreadystatechange = responseNotification;
+            http.open ( 'post', 'http://'+server+'/a_registerid-android.php' );
+            http.setRequestHeader ( 'Content-Type', 'application/x-www-form-urlencoded' );
+            http.send ( postvalue );
+          }
+          catch ( e ) {
+          }
         }
         break;
       case 'message':
