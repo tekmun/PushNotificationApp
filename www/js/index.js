@@ -1,6 +1,10 @@
 var http;
 var registerid;
-var phonenumber;
+var mobilenumber;
+var nric;
+var platform;
+var closemessagehandle = 0;
+var closeerrormessagehandle = 0;
 
 function createRequestObject () {
   var request_o;
@@ -16,12 +20,27 @@ function createRequestObject () {
   return ( request_o );
 }
 
-function responseNotification () {
+function retrieveDisplay () {
+  var postvalue = 'submitform=retrieve&registerid='+localStorage.getItem ( 'registerid' )+'&mobilenumber'+localStorage.getItem ( 'mobilenumber' )+'&platform='+localStorage.getItem ( 'platform' );
+  registerid = e.regid;
+  try {
+    http = createRequestObject ();
+    http.abort ();
+    http.onreadystatechange = responseRetrieve;
+    http.open ( 'post', 'http://'+server+'/a_pushnotification.php' );
+    http.setRequestHeader ( 'Content-Type', 'application/x-www-form-urlencoded' );
+    http.send ( postvalue );
+  }
+  catch ( err ) {
+  }
+}
+
+function responseRetrieveDisplay () {
   if ( ( http.readyState == 4 ) && ( http.status == 200 ) ) {
     var respText = http.responseText.substring ( 5, http.responseText.length - 6 );
-    if ( respText.indexOf ( 'Success' ) < 0 ) {
-      alert ( respText );
-    }
+    document.getElementById ( 'signindiv' ).style.display = 'none';
+    document.getElementById ( 'displaydiv' ).innerHTML = respText;
+    document.getElementById ( 'displaydiv' ).style.display = 'block';
   }
 }
 
@@ -50,10 +69,10 @@ var app = {
     }
   },
   successHandler: function ( result ) {
-    alert ( 'Callback Success! Result = '+result )
+    showerrormessage ( 'Callback Success! Result = '+result )
   },
   errorHandler:function ( error ) {
-    alert ( error );
+    showerrormessage ( error );
   },
   onNotificationGCM: function ( e ) {
     switch( e.event ) {
@@ -61,34 +80,29 @@ var app = {
         if ( e.regid.length > 0 ) {
           registerid = localStorage.getItem ( 'registerid' );
           if ( registerid == null ) {
+            localStorage.setItem ( 'platform', 'android' );
             localStorage.setItem ( 'registerid', e.regid );
-            registerid = e.regid;
-            phonenumber = localStorage.getItem ( 'phonenumber' );
-            if ( phonenumber != null ) {
-              var postvalue = 'submitform=register&registerid='+registerid+'&phonenumber'+phonenumber;
-              try {
-                http = createRequestObject ();
-                http.abort ();
-                http.onreadystatechange = responseNotification;
-                http.open ( 'post', 'http://'+server+'/a_registerid-android.php' );
-                http.setRequestHeader ( 'Content-Type', 'application/x-www-form-urlencoded' );
-                http.send ( postvalue );
-              }
-              catch ( err ) {
-              }
+            mobilenumber = localStorage.getItem ( 'mobilenumber' );
+            if ( mobilenumber == null ) {
+              document.getElementById ( 'displaydiv' ).innerHTML = '';
+              document.getElementById ( 'displaydiv' ).style.display = 'none';
+              document.getElementById ( 'signindiv' ).style.display = 'block';
+            }
+            else {
+              retrieveDisplay ();
             }
           }
         }
         break;
       case 'message':
         // this is the actual push notification. its format depends on the data model from the push server
-        alert ( 'message = '+e.message+' msgcnt = '+e.msgcnt );
+        showerrormessage ( 'message = '+e.message+' msgcnt = '+e.msgcnt );
         break;
       case 'error':
-        alert ( 'GCM error = '+e.msg );
+        showerrormessage ( 'GCM error = '+e.msg );
         break;
       default:
-        alert ( 'An unknown GCM event has occurred' );
+        showerrormessage ( 'An unknown GCM event has occurred' );
         break;
     }
   },
@@ -108,3 +122,133 @@ var app = {
     }
   }
 };
+
+function showmessage ( message ) {
+	document.getElementById ( 'wait' ).style.display = 'none';
+  document.getElementById ( 'errormessage' ).style.display = 'none';
+  document.getElementById ( 'errormessagebottom' ).style.display = 'none';
+	document.getElementById ( 'message' ).innerHTML = message;
+  document.getElementById ( 'message' ).style.display = '';
+	document.getElementById ( 'messagebottom' ).innerHTML = message;
+  document.getElementById ( 'messagebottom' ).style.display = '';
+  if ( closemessagehandle != 0 ) {
+  	clearTimeout ( closemessagehandle );
+  }
+  closemessagehandle = setTimeout ( closemessage, 4000 );
+}
+
+function closemessage () {
+  if ( closemessagehandle != 0 ) {
+  	clearTimeout ( closemessagehandle );
+  }
+	closemessagehandle = 0;
+	document.getElementById ( 'message' ).style.display = 'none';
+	document.getElementById ( 'messagebottom' ).style.display = 'none';
+  document.getElementById ( 'message' ).innerHTML = '';
+  document.getElementById ( 'messagebottom' ).innerHTML = '';
+}
+
+function showerrormessage ( message ) {
+	document.getElementById ( 'wait' ).style.display = 'none';
+  document.getElementById ( 'message' ).style.display = 'none';
+  document.getElementById ( 'messagebottom' ).style.display = 'none';
+	document.getElementById ( 'errormessage' ).innerHTML = message;
+  document.getElementById ( 'errormessage' ).style.display = '';
+	document.getElementById ( 'errormessagebottom' ).innerHTML = message;
+  document.getElementById ( 'errormessagebottom' ).style.display = '';
+  if ( closeerrormessagehandle != 0 ) {
+  	clearTimeout ( closeerrormessagehandle );
+  }
+  closeerrormessagehandle = setTimeout ( closeerrormessage, 6000 );
+}
+
+function closeerrormessage () {
+	closeerrormessagehandle = 0;
+	document.getElementById ( 'errormessage' ).style.display = 'none';
+	document.getElementById ( 'errormessagebottom' ).style.display = 'none';
+  document.getElementById ( 'errormessage' ).innerHTML = '';
+  document.getElementById ( 'errormessagebottom' ).innerHTML = '';
+}
+
+function clickNRICFocus () {
+  document.getElementById ( 'field1text' ).focus ();
+}
+
+function keypressChangeNRIC ( event ) {
+	var key = event.keyCode ? event.keyCode : event.charCode ? event.charCode : event.which;
+	if ( key == 13 ) {
+    clickMobileNumberFocus  ();
+    cancelSubmit ( event );
+  }
+}
+
+function clickMobileNumberFocus () {
+  document.getElementById ( 'field2text' ).focus ();
+}
+
+function keypressChangeMobileNumber ( event ) {
+	var key = event.keyCode ? event.keyCode : event.charCode ? event.charCode : event.which;
+	if ( key == 13 ) {
+    clickSignIn ();
+    cancelSubmit ( event );
+  }
+}
+
+function cancelSubmit ( event ) {
+  if ( document.all && window.ActiveXObject ) {
+    if ( window.event != undefined ) {
+      window.event.cancelBubble = true;
+      window.event.returnValue = false;
+    }
+  }
+  else {
+    event.preventDefault ();
+  }
+}
+
+function responseClickSignIn {
+  if ( ( http.readyState == 4 ) && ( http.status == 200 ) ) {
+    var respText = http.responseText.substring ( 5, http.responseText.length - 6 );
+    if ( respText.indexOf ( 'Success' ) >= 0 ) {
+      localStorage.setItem ( 'mobilenumber', mobilenumber );
+      localStorage.setItem ( 'nric', nric );
+      showmessage ( respText );
+      setTimeout ( 'retrieveDisplay', 5000 );
+    }
+    else {
+      showerrormessage ( respText );
+    }
+  }
+}
+
+function clickSignIn () {
+	if ( document.getElementById ( 'field1text' ).value == '' ) {
+    clickNRICFocus ();
+    return false;
+  }
+	if ( document.getElementById ( 'field2text' ).value == '' ) {
+	  clickMobileNumberFocus ();
+    return false;
+  }
+  var postvalue = 'submitform=signin&nric='+document.getElementById ( 'field1text' ).value+'&mobilenumber'+document.getElementById ( 'field2text' ).value;
+  postvalue += '&registerid='+localStorage.getItem ( 'registerid' );
+  postvalue += '&platform='+localStorage.getItem ( 'platform' );
+  nric = document.getElementById ( 'field1text' ).value;
+  mobilenumber = document.getElementById ( 'field2text' ).value;
+  try {
+    http = createRequestObject ();
+    http.abort ();
+    http.onreadystatechange = responseClickSignIn;
+    http.open ( 'post', 'http://'+server+'/a_pushnotification.php' );
+    http.setRequestHeader ( 'Content-Type', 'application/x-www-form-urlencoded' );
+    http.send ( postvalue );
+  }
+  catch ( err ) {
+  }
+}
+
+function clickRegisterNewAccount () {
+  document.getElementById ( 'signindiv' ).style.display = 'block';
+  document.getElementById ( 'displaydiv' ).innerHTML = respText;
+  document.getElementById ( 'displaydiv' ).style.display = 'none';
+}
