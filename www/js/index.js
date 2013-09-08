@@ -21,13 +21,12 @@ function createRequestObject () {
 }
 
 function retrieveDisplay () {
-  alert ( 'retrieveDisplay' );
   var postvalue = 'submitform=retrieve&registerid='+localStorage.getItem ( 'registerid' )+'&mobilenumber='+localStorage.getItem ( 'mobilenumber' )+'&platform='+localStorage.getItem ( 'platform' );
   alert ( postvalue );
   try {
+    //http.abort ();
     http = createRequestObject ();
-    http.abort ();
-    http.onreadystatechange = responseRetrieve;
+    http.onreadystatechange = responseRetrieveDisplay;
     http.open ( 'post', 'http://'+server+'/a_pushnotification.php' );
     http.setRequestHeader ( 'Content-Type', 'application/x-www-form-urlencoded' );
     http.send ( postvalue );
@@ -213,8 +212,8 @@ function clickSignIn () {
   nric = document.getElementById ( 'field1text' ).value;
   mobilenumber = document.getElementById ( 'field2text' ).value;
   try {
+    //http.abort ();
     http = createRequestObject ();
-    http.abort ();
     http.onreadystatechange = responseClickSignIn;
     http.open ( 'post', 'http://'+server+'/a_pushnotification.php' );
     http.setRequestHeader ( 'Content-Type', 'application/x-www-form-urlencoded' );
