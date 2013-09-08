@@ -234,6 +234,7 @@ function responseClickDeleteAccount () {
 }
 
 function clickDeleteAccount ( registerid, mobilenumber, platform ) {
+  localStorage.removeItem ( 'registerid' );
   var postvalue = 'submitform=deleteaccount&registerid='+registerid+'&mobilenumber='+mobilenumber+'&platform='+platform;
   try {
     http = createRequestObject ();
