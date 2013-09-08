@@ -1,12 +1,8 @@
 <?xml version='1.0' encoding='utf-8'?>
 <widget id="com.learnaholic.pushnotification" version="1.0.0" xmlns="http://www.w3.org/ns/widgets" xmlns:gap="http://phonegap.com/ns/1.0">
-  <name>PushNotificationApp</name>
-  <description>
-      Push Notification for Learnaholic e-Attendance System.
-  </description>
-  <author email="support@learnaholic.com" href="http://www.learnaholic.com">
-      Learnaholic Team
-  </author>
+  <name>eAttendance Notification</name>
+  <description>Push Notification for Learnaholic e-Attendance System</description>
+  <author email="support@learnaholic.com" href="http://www.learnaholic.com">Learnaholic Team</author>
   <feature name="http://api.phonegap.com/1.0/device" />
   <preference name="permissions" value="none" />
   <preference name="phonegap-version" value="2.9.0" />
@@ -24,7 +20,7 @@
   <preference name="disable-cursor" value="false" />
   <preference name="android-minSdkVersion" value="7" />
   <preference name="android-installLocation" value="auto" />
-  <icon src="icon.png" />
+  <icon src="eattendanceicon.png" />
   <icon gap:density="ldpi" gap:platform="android" src="res/icon/android/icon-36-ldpi.png" />
   <icon gap:density="mdpi" gap:platform="android" src="res/icon/android/icon-48-mdpi.png" />
   <icon gap:density="hdpi" gap:platform="android" src="res/icon/android/icon-72-hdpi.png" />
