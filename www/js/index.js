@@ -214,8 +214,6 @@ function clickSignIn () {
     http.open ( 'post', 'http://'+server+'/a_pushnotification.php' );
     http.setRequestHeader ( 'Content-Type', 'application/x-www-form-urlencoded' );
     http.send ( postvalue );
-    alert ( 'http://'+server+'/a_pushnotification.php' );
-    alert ( postvalue );
   }
   catch ( err ) {
   }
