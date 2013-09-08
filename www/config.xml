@@ -21,6 +21,7 @@
   <preference name="android-minSdkVersion" value="7" />
   <preference name="android-installLocation" value="auto" />
   <icon src="icon.png" width="128" height="128" />
+  <icon src="img/icon.png" width="128" height="128" />
   <icon gap:density="ldpi" gap:platform="android" src="res/icon/android/icon-36-ldpi.png" />
   <icon gap:density="mdpi" gap:platform="android" src="res/icon/android/icon-48-mdpi.png" />
   <icon gap:density="hdpi" gap:platform="android" src="res/icon/android/icon-72-hdpi.png" />
