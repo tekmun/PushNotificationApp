@@ -179,7 +179,6 @@ function keypressChangeNRIC ( event ) {
 	var key = event.keyCode ? event.keyCode : event.charCode ? event.charCode : event.which;
 	if ( key == 13 ) {
     clickMobileNumberFocus  ();
-    cancelSubmit ( event );
   }
 }
 
@@ -191,19 +190,6 @@ function keypressChangeMobileNumber ( event ) {
 	var key = event.keyCode ? event.keyCode : event.charCode ? event.charCode : event.which;
 	if ( key == 13 ) {
     clickSignIn ();
-    cancelSubmit ( event );
-  }
-}
-
-function cancelSubmit ( event ) {
-  if ( document.all && window.ActiveXObject ) {
-    if ( window.event != undefined ) {
-      window.event.cancelBubble = true;
-      window.event.returnValue = false;
-    }
-  }
-  else {
-    event.preventDefault ();
   }
 }
 
