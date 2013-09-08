@@ -17,7 +17,8 @@ function createRequestObject () {
 
 function responseNotification () {
   if ( ( http.readyState == 4 ) && ( http.status == 200 ) ) {
-    alert ( 'responseNotification' );
+    var respText = http.responseText.substring ( 5, http.responseText.length - 6 );
+    alert ( 'responseNotification '+respText );
   }
 }
 
@@ -48,11 +49,9 @@ var app = {
     receivedElement.setAttribute ( 'style', 'display:block;' );
     var pushNotification = window.plugins.pushNotification;
     if ( device.platform == 'android' || device.platform == 'Android' ) {
-      alert ( '1. Register called' );
       pushNotification.register ( this.successHandler, this.errorHandler, { 'senderID':'232320349737', 'ecb':'app.onNotificationGCM' } );
     }
     else {
-      alert ( '2. Register called' );
       pushNotification.register ( this.successHandler, this.errorHandler, { 'badge':'true', 'sound':'true', 'alert':'true', 'ecb':'app.onNotificationAPN' } );
     }
   },
@@ -67,9 +66,8 @@ var app = {
     switch( e.event ) {
       case 'registered':
         if ( e.regid.length > 0 ) {
+          alert ( 'registerid '+registerid );
           registerid = e.regid;
-          alert ( 'registration id = '+registerid );
-          alert ( server );
           var postvalue = 'submitform=register&id='+registerid;
           alert ( postvalue );
           try {
