@@ -8,7 +8,7 @@ var app = {
   // 'load', 'deviceready', 'offline', and 'online'.
   bindEvents: function () {
     document.addEventListener ('deviceready', this.onDeviceReady, false );
-    document.addEventListener ( 'load', this.onLoad, false );
+    //document.addEventListener ( 'load', this.onLoad, false );
   },
   onLoad: function () {
     var telephoneNumber = cordova.require ( 'cordova/plugin/telephonenumber' );
