@@ -193,7 +193,7 @@ function keypressChangeMobileNumber ( event ) {
   }
 }
 
-function responseClickSignIn {
+function responseClickSignIn () {
   if ( ( http.readyState == 4 ) && ( http.status == 200 ) ) {
     var respText = http.responseText.substring ( 5, http.responseText.length - 6 );
     if ( respText.indexOf ( 'Success' ) >= 0 ) {
