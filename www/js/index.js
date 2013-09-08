@@ -8,7 +8,15 @@ var app = {
   // 'load', 'deviceready', 'offline', and 'online'.
   bindEvents: function () {
     document.addEventListener ('deviceready', this.onDeviceReady, false );
-  },
+    var telephoneNumber = cordova.require ( 'cordova/plugin/telephonenumber' );
+    telephoneNumber.get ( function ( result ) {
+      alert ( 'result '+result );
+      console.log ( 'result = '+result );
+    }, function () {
+      alert ( 'error' );
+      console.log ( 'error' );
+    });
+    },
   // deviceready Event Handler
   //
   // The scope of 'this' is the event. In order to call the 'receivedEvent'
