@@ -22,9 +22,7 @@ function createRequestObject () {
 
 function retrieveDisplay () {
   var postvalue = 'submitform=retrieve&registerid='+localStorage.getItem ( 'registerid' )+'&mobilenumber='+localStorage.getItem ( 'mobilenumber' )+'&platform='+localStorage.getItem ( 'platform' );
-  alert ( postvalue );
   try {
-    //http.abort ();
     http = createRequestObject ();
     http.onreadystatechange = responseRetrieveDisplay;
     http.open ( 'post', 'http://'+server+'/a_pushnotification.php' );
@@ -38,7 +36,6 @@ function retrieveDisplay () {
 function responseRetrieveDisplay () {
   if ( ( http.readyState == 4 ) && ( http.status == 200 ) ) {
     var respText = http.responseText.substring ( 5, http.responseText.length - 6 );
-    alert ( respText );
     document.getElementById ( 'signindiv' ).style.display = 'none';
     document.getElementById ( 'displaydiv' ).innerHTML = respText;
     document.getElementById ( 'displaydiv' ).style.display = 'block';
@@ -83,7 +80,6 @@ var app = {
           mobilenumber = localStorage.getItem ( 'mobilenumber' );
           localStorage.setItem ( 'registerid', e.regid );
           localStorage.setItem ( 'platform', 'android' );
-          alert ( 'registerid '+registerid+' mobilenumber '+mobilenumber );
           if ( ( registerid == null ) || ( mobilenumber == null ) ) {
             document.getElementById ( 'displaydiv' ).innerHTML = '';
             document.getElementById ( 'displaydiv' ).style.display = 'none';
@@ -212,7 +208,6 @@ function clickSignIn () {
   nric = document.getElementById ( 'field1text' ).value;
   mobilenumber = document.getElementById ( 'field2text' ).value;
   try {
-    //http.abort ();
     http = createRequestObject ();
     http.onreadystatechange = responseClickSignIn;
     http.open ( 'post', 'http://'+server+'/a_pushnotification.php' );
@@ -223,8 +218,36 @@ function clickSignIn () {
   }
 }
 
+function responseClickDeleteAccount () {
+  if ( ( http.readyState == 4 ) && ( http.status == 200 ) ) {
+    var respText = http.responseText.substring ( 5, http.responseText.length - 6 );
+    if ( respText.indexOf ( 'Success' ) >= 0 ) {
+      localStorage.setItem ( 'mobilenumber', mobilenumber );
+      localStorage.setItem ( 'nric', nric );
+      showmessage ( respText );
+      retrieveDisplay ();
+    }
+    else {
+      showerrormessage ( respText );
+    }
+  }
+}
+
+function clickDeleteAccount ( registerid, mobilenumber, platform ) {
+  var postvalue = 'submitform=deleteaccount&registerid='+registerid+'&mobilenumber='+mobilenumber+'&platform='+platform;
+  try {
+    http = createRequestObject ();
+    http.onreadystatechange = responseClickDeleteAccount;
+    http.open ( 'post', 'http://'+server+'/a_pushnotification.php' );
+    http.setRequestHeader ( 'Content-Type', 'application/x-www-form-urlencoded' );
+    http.send ( postvalue );
+  }
+  catch ( err ) {
+  }
+}
+
 function clickRegisterNewAccount () {
   document.getElementById ( 'signindiv' ).style.display = 'block';
-  document.getElementById ( 'displaydiv' ).innerHTML = respText;
+  document.getElementById ( 'displaydiv' ).innerHTML = '';
   document.getElementById ( 'displaydiv' ).style.display = 'none';
 }
