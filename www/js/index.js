@@ -80,6 +80,8 @@ var app = {
           registerid = localStorage.getItem ( 'registerid' );
           mobilenumber = localStorage.getItem ( 'mobilenumber' );
           alert ( 'registerid '+registerid+' mobilenumber '+mobilenumber );
+          localStorage ( 'registerid', registerid );
+          localStorage ( 'platform', 'android' );
           if ( ( registerid == null ) || ( mobilenumber == null ) ) {
             document.getElementById ( 'displaydiv' ).innerHTML = '';
             document.getElementById ( 'displaydiv' ).style.display = 'none';
@@ -213,7 +215,7 @@ function clickSignIn () {
 	  clickMobileNumberFocus ();
     return false;
   }
-  var postvalue = 'submitform=signin&nric='+document.getElementById ( 'field1text' ).value+'&mobilenumber'+document.getElementById ( 'field2text' ).value;
+  var postvalue = 'submitform=signin&nric='+document.getElementById ( 'field1text' ).value+'&mobilenumber='+document.getElementById ( 'field2text' ).value;
   postvalue += '&registerid='+localStorage.getItem ( 'registerid' );
   postvalue += '&platform='+localStorage.getItem ( 'platform' );
   alert ( postvalue );
