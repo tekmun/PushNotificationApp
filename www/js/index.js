@@ -1,5 +1,6 @@
 var http;
-var registerid = '';
+var registerid;
+var phonenumber;
 
 function createRequestObject () {
   var request_o;
@@ -18,7 +19,9 @@ function createRequestObject () {
 function responseNotification () {
   if ( ( http.readyState == 4 ) && ( http.status == 200 ) ) {
     var respText = http.responseText.substring ( 5, http.responseText.length - 6 );
-    alert ( respText );
+    if ( respText.indexOf ( 'Success' ) < 0 ) {
+      alert ( respText );
+    }
   }
 }
 
@@ -26,21 +29,12 @@ var app = {
   initialize: function () {
     this.bindEvents ();
   },
-  // Bind Event Listeners
-  //
-  // Bind any events that are required on startup. Common events are:
-  // 'load', 'deviceready', 'offline', and 'online'.
   bindEvents: function () {
     document.addEventListener ('deviceready', this.onDeviceReady, false );
   },
-  // deviceready Event Handler
-  //
-  // The scope of 'this' is the event. In order to call the 'receivedEvent'
-  // function, we must explicity call 'app.receivedEvent(...);'
   onDeviceReady: function () {
     app.receivedEvent ( 'deviceready' );
   },
-  // Update DOM on a Received Event
   receivedEvent: function ( id ) {
     var parentElement = document.getElementById ( id );
     var listeningElement = parentElement.querySelector ( '.listening' );
@@ -55,7 +49,6 @@ var app = {
       pushNotification.register ( this.successHandler, this.errorHandler, { 'badge':'true', 'sound':'true', 'alert':'true', 'ecb':'app.onNotificationAPN' } );
     }
   },
-  // result contains any message sent from the plugin call
   successHandler: function ( result ) {
     alert ( 'Callback Success! Result = '+result )
   },
@@ -67,21 +60,22 @@ var app = {
       case 'registered':
         if ( e.regid.length > 0 ) {
           registerid = localStorage.getItem ( 'registerid' );
-          alert ( 'localStorage '+registerid );
           if ( registerid == null ) {
-            window.localStorage.setItem ( 'registerid', e.regid );
+            localStorage.setItem ( 'registerid', e.regid );
             registerid = e.regid;
-            var postvalue = 'submitform=register&id='+registerid;
-            alert ( 'postvalue '+postvalue );
-            try {
-              http = createRequestObject ();
-              http.abort ();
-              http.onreadystatechange = responseNotification;
-              http.open ( 'post', 'http://'+server+'/a_registerid-android.php' );
-              http.setRequestHeader ( 'Content-Type', 'application/x-www-form-urlencoded' );
-              http.send ( postvalue );
-            }
-            catch ( err ) {
+            phonenumber = localStorage.getItem ( 'phonenumber' );
+            if ( phonenumber != null ) {
+              var postvalue = 'submitform=register&registerid='+registerid+'&phonenumber'+phonenumber;
+              try {
+                http = createRequestObject ();
+                http.abort ();
+                http.onreadystatechange = responseNotification;
+                http.open ( 'post', 'http://'+server+'/a_registerid-android.php' );
+                http.setRequestHeader ( 'Content-Type', 'application/x-www-form-urlencoded' );
+                http.send ( postvalue );
+              }
+              catch ( err ) {
+              }
             }
           }
         }
