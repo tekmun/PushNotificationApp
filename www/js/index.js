@@ -124,11 +124,8 @@ var app = {
 function showmessage ( message ) {
 	document.getElementById ( 'wait' ).style.display = 'none';
   document.getElementById ( 'errormessage' ).style.display = 'none';
-  document.getElementById ( 'errormessagebottom' ).style.display = 'none';
 	document.getElementById ( 'message' ).innerHTML = message;
   document.getElementById ( 'message' ).style.display = '';
-	document.getElementById ( 'messagebottom' ).innerHTML = message;
-  document.getElementById ( 'messagebottom' ).style.display = '';
   if ( closemessagehandle != 0 ) {
   	clearTimeout ( closemessagehandle );
   }
@@ -141,19 +138,14 @@ function closemessage () {
   }
 	closemessagehandle = 0;
 	document.getElementById ( 'message' ).style.display = 'none';
-	document.getElementById ( 'messagebottom' ).style.display = 'none';
   document.getElementById ( 'message' ).innerHTML = '';
-  document.getElementById ( 'messagebottom' ).innerHTML = '';
 }
 
 function showerrormessage ( message ) {
 	document.getElementById ( 'wait' ).style.display = 'none';
   document.getElementById ( 'message' ).style.display = 'none';
-  document.getElementById ( 'messagebottom' ).style.display = 'none';
 	document.getElementById ( 'errormessage' ).innerHTML = message;
   document.getElementById ( 'errormessage' ).style.display = '';
-	document.getElementById ( 'errormessagebottom' ).innerHTML = message;
-  document.getElementById ( 'errormessagebottom' ).style.display = '';
   if ( closeerrormessagehandle != 0 ) {
   	clearTimeout ( closeerrormessagehandle );
   }
@@ -163,9 +155,7 @@ function showerrormessage ( message ) {
 function closeerrormessage () {
 	closeerrormessagehandle = 0;
 	document.getElementById ( 'errormessage' ).style.display = 'none';
-	document.getElementById ( 'errormessagebottom' ).style.display = 'none';
   document.getElementById ( 'errormessage' ).innerHTML = '';
-  document.getElementById ( 'errormessagebottom' ).innerHTML = '';
 }
 
 function clickNRICFocus () {
@@ -195,12 +185,16 @@ function responseClickSignIn () {
     var respText = http.responseText.substring ( 5, http.responseText.length - 6 );
     alert ( respText );
     if ( respText.indexOf ( 'Success' ) >= 0 ) {
+      alert ( 'SUCCESS' );
+      alert ( 'mobilenumber '+mobilenumber+' nric '+nric );
       localStorage.setItem ( 'mobilenumber', mobilenumber );
       localStorage.setItem ( 'nric', nric );
       showmessage ( respText );
+      alert ( 'BEFORE timeout' );
       setTimeout ( retrieveDisplay, 5000 );
     }
     else {
+      alert ( 'NO SUCCESS' );
       showerrormessage ( respText );
     }
   }
