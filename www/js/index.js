@@ -38,6 +38,7 @@ function retrieveDisplay () {
 function responseRetrieveDisplay () {
   if ( ( http.readyState == 4 ) && ( http.status == 200 ) ) {
     var respText = http.responseText.substring ( 5, http.responseText.length - 6 );
+    alert ( respText );
     document.getElementById ( 'signindiv' ).style.display = 'none';
     document.getElementById ( 'displaydiv' ).innerHTML = respText;
     document.getElementById ( 'displaydiv' ).style.display = 'block';
@@ -185,16 +186,12 @@ function responseClickSignIn () {
     var respText = http.responseText.substring ( 5, http.responseText.length - 6 );
     alert ( respText );
     if ( respText.indexOf ( 'Success' ) >= 0 ) {
-      alert ( 'SUCCESS' );
-      alert ( 'mobilenumber '+mobilenumber+' nric '+nric );
       localStorage.setItem ( 'mobilenumber', mobilenumber );
       localStorage.setItem ( 'nric', nric );
       showmessage ( respText );
-      alert ( 'BEFORE timeout' );
-      setTimeout ( retrieveDisplay, 5000 );
+      retrieveDisplay ();
     }
     else {
-      alert ( 'NO SUCCESS' );
       showerrormessage ( respText );
     }
   }
