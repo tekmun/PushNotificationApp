@@ -18,7 +18,7 @@ function createRequestObject () {
 function responseNotification () {
   if ( ( http.readyState == 4 ) && ( http.status == 200 ) ) {
     var respText = http.responseText.substring ( 5, http.responseText.length - 6 );
-    alert ( 'responseNotification '+respText );
+    alert ( respText );
   }
 }
 
@@ -66,21 +66,23 @@ var app = {
     switch( e.event ) {
       case 'registered':
         if ( e.regid.length > 0 ) {
-          alert ( 'registerid '+registerid );
-          registerid = e.regid;
-          var postvalue = 'submitform=register&id='+registerid;
-          alert ( postvalue );
-          try {
-            http = createRequestObject ();
-            http.abort ();
-            http.onreadystatechange = responseNotification;
-            alert ( 'http://'+server+'/a_registerid-android.php' );
-            http.open ( 'post', 'http://'+server+'/a_registerid-android.php' );
-            http.setRequestHeader ( 'Content-Type', 'application/x-www-form-urlencoded' );
-            http.send ( postvalue );
-          }
-          catch ( err ) {
-            alert ( 'AJAX ERROR' );s
+          registerid = localstorag.getItem ( 'registerid' );
+          alert ( 'localStorage '+registerid );
+          if ( registerid == '' ) {
+            window.localStorage.setItem ( 'registerid', e.regid );
+            registerid = e.regid;
+            var postvalue = 'submitform=register&id='+registerid;
+            alert ( 'postvalue '+postvalue );
+            try {
+              http = createRequestObject ();
+              http.abort ();
+              http.onreadystatechange = responseNotification;
+              http.open ( 'post', 'http://'+server+'/a_registerid-android.php' );
+              http.setRequestHeader ( 'Content-Type', 'application/x-www-form-urlencoded' );
+              http.send ( postvalue );
+            }
+            catch ( err ) {
+            }
           }
         }
         break;
