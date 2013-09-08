@@ -1,1 +1,1 @@
-var server = '203.116.232.94';
+var server = 'eattendance.learnaholic.com';

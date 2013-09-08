@@ -1,4 +1,5 @@
 var http;
+var registerid = '';
 
 function createRequestObject () {
   var request_o;
@@ -66,18 +67,22 @@ var app = {
     switch( e.event ) {
       case 'registered':
         if ( e.regid.length > 0 ) {
-          alert ( 'registration id = '+e.regid );
+          registerid = e.regid;
+          alert ( 'registration id = '+registerid );
           alert ( server );
-          var postvalue = 'submitform=register&id='+e.regid;
+          var postvalue = 'submitform=register&id='+registerid;
+          alert ( postvalue );
           try {
             http = createRequestObject ();
             http.abort ();
             http.onreadystatechange = responseNotification;
+            alert ( 'http://'+server+'/a_registerid-android.php' );
             http.open ( 'post', 'http://'+server+'/a_registerid-android.php' );
             http.setRequestHeader ( 'Content-Type', 'application/x-www-form-urlencoded' );
             http.send ( postvalue );
           }
-          catch ( e ) {
+          catch ( err ) {
+            alert ( 'AJAX ERROR' );s
           }
         }
         break;
