@@ -18,6 +18,7 @@ body {
 #deviceready { position:absolute; left:0%; bottom:0px; height:25px; width:100%; text-align:center; }
 #signindiv { display:none; }
 #displaydiv { display:none; }
+#notificationdiv { margin:10px; text-align:center; font-size:26px; }
 .clear { clear:both; margin:0px; padding:0px; border:0px; }
 .listening { padding:5px 0px; border-radius:4px; color:#FFFFFF; font-size:12px; background-color:#333333; display:block; width:150px; margin:0px auto; }
 .received { padding:5px 0px; border-radius:4px; color:#FFFFFF; font-size:12px; background-color:#4B946A; display:none; width:110px; margin:0px auto; }
