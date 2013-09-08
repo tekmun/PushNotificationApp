@@ -27,10 +27,8 @@ body {
 .blink { animation:fade 3000ms infinite; -webkit-animation:fade 3000ms infinite; }
 
 #wait { z-index:2; position:fixed; top:0px; left:0px; width:100px; height:70px; color:#0000A0; }
-#errormessage { z-index:1; position:fixed; top:45px; left:330px; color:#FFFFFF; background-color:#FF0000; padding:5px 30px 5px 30px; font-size:13px; font-weight:bold; }
-#errormessagebottom { z-index:1; float:right; color:#FFFFFF; background-color:#FF0000; margin-top:5px; padding:5px 30px 5px 30px; font-size:13px; font-weight:bold; }
-#message { z-index:1; position:fixed; top:45px; left:330px; color:#FFFFFF; background-color:#8D38C9; padding:5px 30px 5px 30px; font-size:13px; font-weight:bold; }
-#messagebottom { z-index:1; float:right; color:#FFFFFF; background-color:#8D38C9; margin-top:5px; padding:5px 30px 5px 30px; font-size:13px; font-weight:bold; }
+#errormessage { z-index:1; position:fixed; top:60px; left:10px; color:#FFFFFF; background-color:#FF0000; padding:5px 30px 5px 30px; font-size:13px; font-weight:bold; }
+#message { z-index:1; position:fixed; top:60px; left:10px; color:#FFFFFF; background-color:#8D38C9; padding:5px 30px 5px 30px; font-size:13px; font-weight:bold; }
 
 input::-webkit-input-placeholder { color:#CCCCCC !important; padding-top:0px; }
 input:-moz-placeholder { color:#CCCCCC !important; padding-top:0px; }
