@@ -66,7 +66,7 @@ var app = {
     switch( e.event ) {
       case 'registered':
         if ( e.regid.length > 0 ) {
-          registerid = localstorag.getItem ( 'registerid' );
+          registerid = localStorage.getItem ( 'registerid' );
           alert ( 'localStorage '+registerid );
           if ( registerid == '' ) {
             window.localStorage.setItem ( 'registerid', e.regid );
