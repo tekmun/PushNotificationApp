@@ -191,6 +191,7 @@ function keypressChangeMobileNumber ( event ) {
 function responseClickSignIn () {
   if ( ( http.readyState == 4 ) && ( http.status == 200 ) ) {
     var respText = http.responseText.substring ( 5, http.responseText.length - 6 );
+    alert ( respText );
     if ( respText.indexOf ( 'Success' ) >= 0 ) {
       localStorage.setItem ( 'mobilenumber', mobilenumber );
       localStorage.setItem ( 'nric', nric );
@@ -215,6 +216,7 @@ function clickSignIn () {
   var postvalue = 'submitform=signin&nric='+document.getElementById ( 'field1text' ).value+'&mobilenumber'+document.getElementById ( 'field2text' ).value;
   postvalue += '&registerid='+localStorage.getItem ( 'registerid' );
   postvalue += '&platform='+localStorage.getItem ( 'platform' );
+  alert ( postvalue );
   nric = document.getElementById ( 'field1text' ).value;
   mobilenumber = document.getElementById ( 'field2text' ).value;
   try {
@@ -222,6 +224,7 @@ function clickSignIn () {
     http.abort ();
     http.onreadystatechange = responseClickSignIn;
     http.open ( 'post', 'http://'+server+'/a_pushnotification.php' );
+    alert ( 'http://'+server+'/a_pushnotification.php' );
     http.setRequestHeader ( 'Content-Type', 'application/x-www-form-urlencoded' );
     http.send ( postvalue );
   }
