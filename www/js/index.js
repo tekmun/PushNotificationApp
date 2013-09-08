@@ -21,7 +21,9 @@ function createRequestObject () {
 }
 
 function retrieveDisplay () {
-  var postvalue = 'submitform=retrieve&registerid='+localStorage.getItem ( 'registerid' )+'&mobilenumber'+localStorage.getItem ( 'mobilenumber' )+'&platform='+localStorage.getItem ( 'platform' );
+  alert ( 'retrieveDisplay' );
+  var postvalue = 'submitform=retrieve&registerid='+localStorage.getItem ( 'registerid' )+'&mobilenumber='+localStorage.getItem ( 'mobilenumber' )+'&platform='+localStorage.getItem ( 'platform' );
+  alert ( postvalue );
   try {
     http = createRequestObject ();
     http.abort ();
@@ -29,7 +31,6 @@ function retrieveDisplay () {
     http.open ( 'post', 'http://'+server+'/a_pushnotification.php' );
     http.setRequestHeader ( 'Content-Type', 'application/x-www-form-urlencoded' );
     http.send ( postvalue );
-    alert ( postvalue );
   }
   catch ( err ) {
   }
@@ -83,6 +84,7 @@ var app = {
           mobilenumber = localStorage.getItem ( 'mobilenumber' );
           localStorage.setItem ( 'registerid', e.regid );
           localStorage.setItem ( 'platform', 'android' );
+          alert ( 'registerid '+registerid+' mobilenumber '+mobilenumber );
           if ( ( registerid == null ) || ( mobilenumber == null ) ) {
             document.getElementById ( 'displaydiv' ).innerHTML = '';
             document.getElementById ( 'displaydiv' ).style.display = 'none';
@@ -184,7 +186,6 @@ function keypressChangeMobileNumber ( event ) {
 function responseClickSignIn () {
   if ( ( http.readyState == 4 ) && ( http.status == 200 ) ) {
     var respText = http.responseText.substring ( 5, http.responseText.length - 6 );
-    alert ( respText );
     if ( respText.indexOf ( 'Success' ) >= 0 ) {
       localStorage.setItem ( 'mobilenumber', mobilenumber );
       localStorage.setItem ( 'nric', nric );
