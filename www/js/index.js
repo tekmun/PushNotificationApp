@@ -68,7 +68,7 @@ var app = {
         if ( e.regid.length > 0 ) {
           registerid = localStorage.getItem ( 'registerid' );
           alert ( 'localStorage '+registerid );
-          if ( registerid == '' ) {
+          if ( registerid == null ) {
             window.localStorage.setItem ( 'registerid', e.regid );
             registerid = e.regid;
             var postvalue = 'submitform=register&id='+registerid;
