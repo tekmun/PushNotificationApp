@@ -80,8 +80,8 @@ var app = {
           registerid = localStorage.getItem ( 'registerid' );
           mobilenumber = localStorage.getItem ( 'mobilenumber' );
           alert ( 'registerid '+registerid+' mobilenumber '+mobilenumber );
-          localStorage ( 'registerid', registerid );
-          localStorage ( 'platform', 'android' );
+          localStorage.setItem ( 'registerid', registerid );
+          localStorage.setItem ( 'platform', 'android' );
           if ( ( registerid == null ) || ( mobilenumber == null ) ) {
             document.getElementById ( 'displaydiv' ).innerHTML = '';
             document.getElementById ( 'displaydiv' ).style.display = 'none';
