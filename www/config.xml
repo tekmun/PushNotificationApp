@@ -45,7 +45,6 @@
   <gap:splash gap:platform="ios" height="768" src="res/screen/ios/screen-ipad-landscape.png" width="1024" />
   <gap:splash gap:platform="winphone" src="res/screen/windows-phone/screen-portrait.jpg" />
   <gap:plugin name="com.adobe.plugins.pushplugin" />
-  <plugin name="TelephoneNumber" value="com.simonmacdonald.cordova.plugins.TelephoneNumber"/>
   <access origin="http://203.116.232.91" />
   <access origin="http://203.116.232.94" />
 </widget>

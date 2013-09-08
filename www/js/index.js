@@ -22,7 +22,6 @@ function createRequestObject () {
 
 function retrieveDisplay () {
   var postvalue = 'submitform=retrieve&registerid='+localStorage.getItem ( 'registerid' )+'&mobilenumber'+localStorage.getItem ( 'mobilenumber' )+'&platform='+localStorage.getItem ( 'platform' );
-  registerid = e.regid;
   try {
     http = createRequestObject ();
     http.abort ();
@@ -79,10 +78,12 @@ var app = {
       case 'registered':
         if ( e.regid.length > 0 ) {
           registerid = localStorage.getItem ( 'registerid' );
+          alert ( registerid );
           if ( registerid == null ) {
             localStorage.setItem ( 'platform', 'android' );
             localStorage.setItem ( 'registerid', e.regid );
             mobilenumber = localStorage.getItem ( 'mobilenumber' );
+            alert ( mobilenumber );
             if ( mobilenumber == null ) {
               document.getElementById ( 'displaydiv' ).innerHTML = '';
               document.getElementById ( 'displaydiv' ).style.display = 'none';

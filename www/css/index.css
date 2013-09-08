@@ -2,10 +2,11 @@ body {
   -webkit-touch-callout: none;                /* prevent callout to copy image, etc when tap to hold */
   -webkit-text-size-adjust: none;             /* prevent webkit from resizing text to fit */
   -webkit-user-select: none;                  /* prevent copy paste, to allow, change 'none' to 'text' */
-  background-image:url('./../res/screen/screen.png'); 
-  background-repeat:no-repeat; 
-  background-position:top center;
+  background-image:url('./../screen.png'); 
+  background-repeat:repeat-x;
   background-attachment:fixed;
+  background-color:#CDE4F4;
+  background-position:top center;
   font-family:'HelveticaNeue-Light', 'HelveticaNeue', Helvetica, Arial, sans-serif;
   font-size:12px;
   height:100%;
