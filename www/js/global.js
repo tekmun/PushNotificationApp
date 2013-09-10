@@ -1,0 +1,1 @@
+var server = 'eattendance.learnaholic.com';

@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <meta name="format-detection" content="telephone=no" />
+    <meta name="viewport" content="user-scalable=no, initial-scale=1, maximum-scale=1, minimum-scale=1, width=device-width, height=device-height, target-densitydpi=device-dpi" />
+    <link rel="stylesheet" type="text/css" href="css/index.css" />
+    <title>Learnaholic Push Notification</title>
+    <style type="text/css">
+      @font-face {
+        font-family:"FontinB";
+        font-weight: bold;
+        src: url("./font/Fontin-Bold.eot");
+        src: local("☺"), url("./font/Fontin-Bold.ttf") format("truetype");
+      }
+    </style>
+  </head>
+  <body>
+    <span id="errormessage" class="all-corner" style="display:none"></span>
+    <span id="message" class="all-corner" style="display:none"></span>
+    <div id="wait" style="text-align:center;display:none">
+      <span>Please Wait ...</span><br /><img src="./img/spinningwheel.gif" />
+    </div>
+    <div style="width:100%;text-align:center;margin-top:10px">
+      <img src="img/logo.png" />
+    </div>
+    <p class="clear"></p>
+    <div id="signindiv">
+      <div style="text-align:center;margin-top:10px;height:70px;">
+      <span>Enter Staff/Student NRIC:</span>
+      <p class="clear"></p>
+      <input type="text" id="field1text" class="inputbox all-corner" name="field1text" style="text-align:center;width:250px;padding:5px;height:30px" value="" tabindex="1" placeholder="NRIC" onkeypress="keypressChangeNRIC ( event )" onclick="clickNRICFocus ()" /><br />
+      </div>
+      <div style="text-align:center;height:80px;">
+      <span>Enter Staff/Student/Parent Mobile Number:</span>
+      <p class="clear"></p>
+      <input type="text" id="field2text" class="inputbox all-corner" name="field2text" value="" tabindex="2" onkeypress="keypressChangeMobileNumber ( event )" placeholder="Mobile Number" onclick="clickMobileNumberFocus ()" /><br />
+      <p class="clear"></p>
+      </div>
+      <div style="text-align:center;height:40px;">
+        <input type="button" class="button all-corner" value="Sign In" tabindex="3" onclick="clickSignIn ()" />
+      </div>
+      <p class="clear" />
+    </div>
+    <div id="displaydiv">
+    </div>
+    <div id="notificationdiv">
+    </div>
+    <div id="deviceready" class="blink">
+      <div class="listening">CONNECTING TO DEVICE</div>
+      <div class="received">DEVICE IS READY</div>
+    </div>
+    <script type="text/javascript" src="phonegap.js"></script>
+    <script type="text/javascript" src="PushNotification.js"></script>
+    <script type="text/javascript" src="js/index.js"></script>
+    <script type="text/javascript" src="js/global.js"></script>
+    <script type="text/javascript">
+      app.initialize ();
+    </script>
+  </body>
+</html>
