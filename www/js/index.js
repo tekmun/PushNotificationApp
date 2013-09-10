@@ -91,7 +91,6 @@ var app = {
         }
         break;
       case 'message':
-        alert ( e.message );
         //showerrormessage ( 'message = '+e.message+' msgcnt = '+e.msgcnt );
         document.getElementById ( 'notificationdiv' ).innerHTML = e.message;
         break;
